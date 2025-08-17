@@ -17,12 +17,12 @@ type Template struct {
 }
 
 func gencode(deps []string) string {
-
+	var args args
 	if len(deps) == 0 {
 		return ""
 	}
 
-	rdc := Template{args.DepsVarName, "'" + strings.Join(deps, "' '") + "'", !args.ExposeDeps}
+	rdc := Template{args.DepsName, "'" + strings.Join(deps, "' '") + "'", !args.DepsCode}
 	tmpl, err := template.New("").Parse(bin)
 	if err != nil {
 		panic(err)

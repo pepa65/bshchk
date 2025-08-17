@@ -1,41 +1,54 @@
-# bshchk
-a runtime bash dependency checker. this is useful when you want to assure that ALL external commands you have used will be present at runtime.
+# bshchk 0.2.0
+**Dependency checker for bash scripts, to assure all external commands will be present when run.**
 
-## usage
+## Usage
 ```sh
-bshchk source.sh with_bshchk.sh
-bshchk '' with_bshchk.sh # will read from stdin
-bshchk # will read from stdin, and write to stdin
+bshchk BASH_SOURCE OUTFILE
+
+# Will write to stdout
+bshchk BASH_SOURCE
+
+# For piping in, will read from stdin
+bshchk - OUTFILE
+
+# Will read from stdin, and write to stdout
+bshchk
+
+# Will only show the deps as a bash array
+bshchk --deps-only
+
+# Will only show the additional code
+bshchk --deps-code
 ```
 
-tags
-```sh
-# To explicitly add curl:
-#bshchk:add-cmd curl
+### Tags in source
+* To explicitly add curl as a dependency, add this line to the source:
+  `#bshchk:add-cmd curl`
+* To prevent curl from being seen as a dependency, add this line to the source:
+  `#bshchk:ignore-cmd curl`
+* Multiple commands can be added and ignored as dependencies, like:
+  `#bshchk:add-cmd curl wget`
 
-# To disable checking for one curl:
-#bshchk:ignore-cmd curl
+## Help
+```
+bshchk v0.2.0 - Dependency checker for bash scripts
+Usage: bshchk [--version] [--deps-only] [--deps-code] [--deps-name DEPS-NAME] [--ignore-shebang] [SOURCE [OUTFILE]]
 
-# You can add/ignore multiple commands at once:
-#bshchk:add-cmd curl wget
+Positional arguments:
+  SOURCE                 If given as '-' or '': read from stdin
+  OUTFILE                If not given: print to stdout
+
+Options:
+  --version, -V          Print version
+  --deps-only, -d        Print dependencies as a bash array
+  --deps-code, -c        Print additional code
+  --deps-name DEPS-NAME, -n DEPS-NAME
+                         Override deps variable name [default: deps]
+  --ignore-shebang, -i   Ignore shebang requirement
+  --help, -h             display this help and exit
 ```
 
-
-## license
-```
-bshchk - a bash runtime dependency checker
-Copyright (C) 2024  blek! <me@blek.codes>
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, version 3  of the License,  and not  a
-later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.
-```
+## License
+* **GPLv3+**
+* Copyright (C) 2024 blek! <me@blek.codes> 2025 github.com/pepa65
+* See [LICENSE]

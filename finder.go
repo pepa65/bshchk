@@ -1,6 +1,8 @@
 package main
 
 import (
+//	"fmt"
+	"slices"
 	"strings"
 
 	"mvdan.cc/sh/v3/syntax"
@@ -8,7 +10,7 @@ import (
 
 func get_ignored_and_deps(code string) ([]string, []string) {
 	// source: https://www.gnu.org/software/bash/manual/html_node/Bash-Builtins.html
-	var ignored []string = []string{"alias", "bind", "builtin", "caller", "command", "declare", "echo", "enable", "let", "local", "logout", "mapfile", "printf", "read", "readarray", "source", "type", "typeset", "ulimit", "unalias"}
+	var ignored []string = []string{":", "alias", "bash", "bg", "bind", "break", "builtin", "caller", "cd", "command", "compgen", "complete", "compopt", "continue", "declare", "dirs", "disown", "echo", "enable", "eval", "exec", "exit", "export", "false", "fc", "fg", "getopt", "getopts", "hash", "help", "history", "jobs", "kill", "let", "local", "logout", "mapfile", "popd", "printf", "pushd", "pwd", "read", "readarray", "readonly", "return", "set", "sh", "shift", "shopt", "source", "suspend", "test", "times", "trap", "true", "type", "typeset", "ulimit", "umask", "unalias", "wait"}
 	var deps []string
 
 	for _, line := range strings.Split(code, "\n") {
@@ -54,7 +56,10 @@ func find(code string) ([]string, error) {
 				for _, part := range x.Args[i].Parts {
 					switch xx := part.(type) {
 					case *syntax.Lit:
-						deps = append(deps, xx.Value)
+						if !slices.Contains(deps, xx.Value) {
+//fmt.Printf("%s [#] %s\n", splitted[0], splitted[1:])
+							deps = append(deps, xx.Value)
+						}
 					}
 					return true
 				}
