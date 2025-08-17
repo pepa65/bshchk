@@ -10,7 +10,7 @@ import (
 )
 
 const name = "bshchk"
-const version = "0.2.1"
+const version = "0.2.2"
 
 type args struct {
 	Source        string `arg:"positional" help:"If given as '-' or '': read from stdin" default:""`
@@ -78,11 +78,11 @@ func main() {
 
 	var gen string
 	if args.DepsOnly {
-		gen = strings.Split(gencode(found), "\n")[1]
+		gen = strings.Split(gencode(args, found), "\n")[1]
 	} else if args.DepsCode {
-		gen = gencode(found)
+		gen = gencode(args, found)
 	} else {
-		gen = shebang + "\n\n" + gencode(found) + "\n\n" + strings.Join(codelines[1:], "\n")
+		gen = shebang + "\n\n" + gencode(args, found) + "\n\n" + strings.Join(codelines[1:], "\n")
 	}
 
 	if args.Outfile == "" {

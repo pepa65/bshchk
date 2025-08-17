@@ -13,16 +13,14 @@ var bin string
 type Template struct {
 	DepsVar   string
 	Deps      string
-	UnsetDeps bool
 }
 
-func gencode(deps []string) string {
-	var args args
+func gencode(args args, deps []string) string {
 	if len(deps) == 0 {
 		return ""
 	}
 
-	rdc := Template{args.DepsName, "'" + strings.Join(deps, "' '") + "'", !args.DepsCode}
+	rdc := Template{args.DepsName, "'" + strings.Join(deps, "' '") + "'"}
 	tmpl, err := template.New("").Parse(bin)
 	if err != nil {
 		panic(err)
