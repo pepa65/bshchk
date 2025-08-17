@@ -6,17 +6,17 @@ for d in ${{.DepsVar}}
 do command -v $d >/dev/null 2>&1 || non_ok+=$d
 done
 
-if ((${#non_ok[@]}))
-then
-	>&2 echo "RDC Failed!"
-	>&2 echo "  This program requires these commands:"
-	>&2 echo "  > ${{.DepsVar}}"
-	>&2 echo "    --- "
-	>&2 echo "  From which, these are missing:"
-	>&2 echo "  > $non_ok"
-	>&2 echo "Make sure that those are installed and are present in \$PATH."
+((${#non_ok[@]})) &&
+	cat <<-EOM >&2 &&
+		This program requires these commands to be installed:
+		\${{.DepsVar}}
+
+		These are still missing:
+		\$non_ok
+
+		Please install the corresponding packages first.
+	EOM
 	exit 1
-fi
 
 unset non_ok{{if .UnsetDeps}}
 unset {{.DepsVar}}

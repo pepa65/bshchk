@@ -49,6 +49,6 @@ Options:
 ```
 
 ## License
-* **GPLv3+**
 * Copyright (C) 2024 blek! <me@blek.codes> 2025 github.com/pepa65
-* See [LICENSE]
+* **GPLv3+**
+* See [LICENSE](LICENSE)
