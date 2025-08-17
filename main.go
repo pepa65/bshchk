@@ -10,7 +10,7 @@ import (
 )
 
 const name = "bshchk"
-const version = "0.2.0"
+const version = "0.2.1"
 
 type args struct {
 	Source        string `arg:"positional" help:"If given as '-' or '': read from stdin" default:""`

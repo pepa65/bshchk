@@ -29,6 +29,5 @@ func gencode(deps []string) string {
 	}
 	var buf bytes.Buffer
 	tmpl.Execute(&buf, rdc)
-
 	return buf.String()
 }

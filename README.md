@@ -1,4 +1,4 @@
-# bshchk 0.2.0
+# bshchk 0.2.1
 **Dependency checker for bash scripts, to assure all external commands will be present when run.**
 
 ## Usage
@@ -31,7 +31,7 @@ bshchk --deps-code
 
 ## Help
 ```
-bshchk v0.2.0 - Dependency checker for bash scripts
+bshchk v0.2.1 - Dependency checker for bash scripts
 Usage: bshchk [--version] [--deps-only] [--deps-code] [--deps-name DEPS-NAME] [--ignore-shebang] [SOURCE [OUTFILE]]
 
 Positional arguments:

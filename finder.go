@@ -1,7 +1,6 @@
 package main
 
 import (
-//	"fmt"
 	"slices"
 	"strings"
 
@@ -18,6 +17,7 @@ func get_ignored_and_deps(code string) ([]string, []string) {
 		if len(splitted) < 2 {
 			continue
 		}
+
 		if splitted[0] == "#bshchk:ignore-cmd" {
 			ignored = append(ignored, splitted[1:]...)
 		}
@@ -44,7 +44,6 @@ func find(code string) ([]string, error) {
 		case *syntax.FuncDecl:
 			ignored = append(ignored, x.Name.Value)
 		}
-
 		return true
 	})
 
@@ -57,7 +56,6 @@ func find(code string) ([]string, error) {
 					switch xx := part.(type) {
 					case *syntax.Lit:
 						if !slices.Contains(deps, xx.Value) {
-//fmt.Printf("%s [#] %s\n", splitted[0], splitted[1:])
 							deps = append(deps, xx.Value)
 						}
 					}
@@ -70,7 +68,6 @@ func find(code string) ([]string, error) {
 	})
 
 	var finished_deps []string
-
 	for _, dep := range deps {
 		is_builtin := false
 		for _, builtin := range ignored {
@@ -83,6 +80,5 @@ func find(code string) ([]string, error) {
 			finished_deps = append(finished_deps, dep)
 		}
 	}
-
 	return finished_deps, nil
 }
