@@ -19,6 +19,8 @@ builds:
     goarch:
       - arm
       - arm64
+      - amd64
+      - i386
     goarm:
       - 5
       - 6
